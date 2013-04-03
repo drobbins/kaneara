@@ -6,6 +6,10 @@ package { "zsh":
     ensure => installed,
 }
 
+group { "admin":
+    ensure => present,
+}
+
 user { "robbinsd":
     ensure => present,
     uid => '507',

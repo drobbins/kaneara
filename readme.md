@@ -8,3 +8,4 @@ sudo rpm -Uvh remi-release-6*.rpm epel-release-6*.rpm
 ```
 
 * ``yum install puppet git``
+* ``git clone https://github.com/drobbins/kaneara.git``

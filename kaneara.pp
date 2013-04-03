@@ -1,14 +1,18 @@
+package { "vim":
+    ensure => installed,
+}
+
 package { "zsh":
-  ensure => installed,
+    ensure => installed,
 }
 
 user { "robbinsd":
-  ensure => present,
-  uid => '507',
-  gid => 'admin',
-  shell => '/bin/zsh',
-  home => '/home/robbinsd',
-  managehome => true,
+    ensure => present,
+    uid => '507',
+    gid => 'admin',
+    shell => '/bin/zsh',
+    home => '/home/robbinsd',
+    managehome => true,
 }
 
 ssh_authorized_key { "robbinsdkey":

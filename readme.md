@@ -7,5 +7,16 @@ wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 sudo rpm -Uvh remi-release-6*.rpm epel-release-6*.rpm
 ```
 
-* ``yum install puppet git``
+* Install the Puppet Labs Repo (for the latest version of puppet): ``vi /etc/yum.repos.d/puppetlabs.repo``
+
+```
+[puppetlabs]
+name=Puppet Labs Packages
+baseurl=http://yum.puppetlabs.com/el/$releasever/products/$basearch/
+enabled=1
+gpgcheck=1
+gpgkey=http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs
+```
+
+* ``yum install puppet-2.7.19 git``
 * ``git clone https://github.com/drobbins/kaneara.git``

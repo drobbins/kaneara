@@ -33,17 +33,7 @@ ssh_authorized_key { "robbinsdkey":
     type => "ssh-rsa"
 }
 
-# Sudo Module...
-exec { "sudomodule":
-    command => "puppet install module saz-sudo",
-    path => "/usr/bin:/usr/sbin:/bin:/usr/local/bin",
-    creates => "/etc/puppet/modules/sudo/"
-    #refreshonly => true,
-}
-
-class { 'sudo': 
-    require => Exec["sudomodule"],
-}
+class { 'sudo': }
 
 sudo::conf { 'robbinsd':
     priority => 10,

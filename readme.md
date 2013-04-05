@@ -20,3 +20,6 @@ gpgkey=http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs
 
 * ``yum install puppet-2.7.19 git``
 * ``git clone https://github.com/drobbins/kaneara.git``
+* ``cd kaneara``
+* ``puppet apply modules.pp``
+* ``puppet apply kaneara.pp``

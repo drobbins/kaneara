@@ -42,7 +42,7 @@ exec { "sudomodule":
 }
 
 class { 'sudo': 
-    requires => "sudomodule"
+    require => Exec["sudomodule"],
 }
 
 sudo::conf { 'robbinsd':

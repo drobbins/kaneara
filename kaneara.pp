@@ -1,3 +1,5 @@
+
+# Install some basic packages
 package { "vim-common":
     ensure => installed,
 }
@@ -6,6 +8,11 @@ package { "zsh":
     ensure => installed,
 }
 
+package { "make":
+    ensure => installed,
+}
+
+# Set up me
 group { "admin":
     ensure => present,
 }

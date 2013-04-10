@@ -40,6 +40,13 @@ sudo::conf { 'robbinsd':
     content  => 'robbinsd ALL=(ALL) NOPASSWD: ALL',
 }
 
+# MySQL
+class { 'mysql': }
+
+class { 'mysql::server':
+  config_hash => { 'root_password' => 'password' }
+}
+
 # Call my modules
 include nginx
 include ssh

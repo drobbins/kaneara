@@ -6,3 +6,10 @@ exec { "sudomodule":
     path => "/usr/bin:/usr/sbin:/bin:/usr/local/bin",
     creates => "/etc/puppet/modules/sudo/",
 }
+
+# MySQL Module
+exec { "mysqlmodule":
+    command => "puppet module install puppetlabs/mysql",
+    path => "/usr/bin:/usr/sbin:/bin:/usr/local/bin",
+    creates => "/etc/puppet/modules/sudo/",
+}

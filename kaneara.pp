@@ -39,3 +39,6 @@ sudo::conf { 'robbinsd':
     priority => 10,
     content  => 'robbinsd ALL=(ALL) NOPASSWD: ALL',
 }
+
+# Call my modules
+include nginx

@@ -43,9 +43,7 @@ sudo::conf { 'robbinsd':
 # MySQL
 class { 'mysql': }
 
-class { 'mysql::server':
-  config_hash => { 'root_password' => 'password' }
-}
+class { 'mysql::server': }
 
 # Call my modules
 include nginx

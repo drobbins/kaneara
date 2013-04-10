@@ -22,4 +22,4 @@ gpgkey=http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs
 * ``git clone https://github.com/drobbins/kaneara.git``
 * ``cd kaneara``
 * ``puppet apply modules.pp``
-* ``puppet apply  --modulepath=`pwd`/modules kaneara.pp``
+* ``puppet apply  --modulepath=`puppet --configprint modulepath`:`pwd`/modules kaneara.pp``

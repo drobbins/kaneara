@@ -42,3 +42,4 @@ sudo::conf { 'robbinsd':
 
 # Call my modules
 include nginx
+include ssh

@@ -22,4 +22,6 @@ gpgkey=http://yum.puppetlabs.com/RPM-GPG-KEY-puppetlabs
 * ``git clone https://github.com/drobbins/kaneara.git``
 * ``cd kaneara``
 * ``puppet apply modules.pp``
-* ``puppet apply  --modulepath=`puppet --configprint modulepath`:`pwd`/modules kaneara.pp``
+* ``puppet apply  --modulepath=`puppet --configprint modulepath`:`pwd`/modules kaneara.pp`` or ``make apply`` if you've run it before.
+
+At some point you have to manually handle SSL keys, since they can't be safely handled in puppet.

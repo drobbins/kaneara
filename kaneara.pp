@@ -1,6 +1,6 @@
 
 # Install some basic packages
-package { "vim-common":
+package { ["vim-common", "vim-minimal", "vim-enhanced"]:
     ensure => installed,
 }
 

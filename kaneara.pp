@@ -48,3 +48,4 @@ class { 'mysql::server': }
 # Call my modules
 include nginx
 include ssh
+include php

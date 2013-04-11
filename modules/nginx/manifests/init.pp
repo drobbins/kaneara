@@ -13,6 +13,8 @@ class nginx {
 
   file { 'nginx.conf':
     path    => '/etc/nginx/',
+    force   => true,
+    purge   => true,
     ensure  => present,
     recurse => true,
     require => Package['nginx'],

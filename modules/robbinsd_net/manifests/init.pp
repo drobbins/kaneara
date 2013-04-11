@@ -8,7 +8,7 @@ class robbinsd_net {
     recurse => true,
     require => Package['nginx'],
     notify => Service['nginx'],
-    source  => "puppet:///modules/robbinsd.net/robbinsd.net.conf",
+    source  => "puppet:///modules/robbinsd_net/robbinsd.net.conf",
   }
 
   file { 'robbinsd.net.ssl.conf':
@@ -17,7 +17,7 @@ class robbinsd_net {
     recurse => true,
     require => Package['nginx'],
     notify => Service['nginx'],
-    source  => "puppet:///modules/robbinsd.net/robbinsd.net.ssl.conf",
+    source  => "puppet:///modules/robbinsd_net/robbinsd.net.ssl.conf",
   }
 
 }

@@ -49,3 +49,4 @@ class { 'mysql::server': }
 include nginx
 include ssh
 include php
+include robbinsd.net

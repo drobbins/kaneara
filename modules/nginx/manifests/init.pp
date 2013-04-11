@@ -21,4 +21,10 @@ class nginx {
     source  => "puppet:///modules/nginx/",
   }
 
+  # Prevent purge from deleting my SSL key
+  file { 'ssl.key':
+    ensure => present,
+    path => '/etc/nginx/ssl.key'
+  }
+
 }

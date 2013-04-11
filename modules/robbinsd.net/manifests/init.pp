@@ -1,4 +1,4 @@
-class robbinsd.net {
+class "robbinsd.net" {
 
   include nginx
 

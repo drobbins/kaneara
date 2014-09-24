@@ -9,5 +9,6 @@
       - { role: base, sudo: yes }
       - robbinsd
       - { role: nginx, sudo: yes }
+      - { role: robbinsd.net, sudo: yes }
   tasks:
       - debug: msg="Hello World"

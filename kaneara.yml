@@ -1,4 +1,8 @@
 ---
 - hosts: all
+  pre_tasks:
+      - name: Install libselinux-python
+        sudo: true
+        yum: name=libselinux-python state=present
   tasks:
       - debug: msg="Hello World"

@@ -4,5 +4,7 @@
       - name: Install libselinux-python
         sudo: true
         yum: name=libselinux-python state=present
+  roles:
+      - { role: goozbach.EPEL, sudo: yes }
   tasks:
       - debug: msg="Hello World"

@@ -24,4 +24,3 @@ Alternately put `kaneara` somewhere in your `/etc/ansible/hosts` file:
 ```
 kaneara ansible_ssh_host=198.199.67.43
 ```
-

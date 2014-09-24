@@ -6,5 +6,7 @@
         yum: name=libselinux-python state=present
   roles:
       - { role: goozbach.EPEL, sudo: yes }
+      - { role: base, sudo: yes }
+      - robbinsd
   tasks:
       - debug: msg="Hello World"

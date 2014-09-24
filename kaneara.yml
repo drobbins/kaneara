@@ -8,5 +8,6 @@
       - { role: goozbach.EPEL, sudo: yes }
       - { role: base, sudo: yes }
       - robbinsd
+      - { role: nginx, sudo: yes }
   tasks:
       - debug: msg="Hello World"

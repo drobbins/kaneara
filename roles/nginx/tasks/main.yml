@@ -1,0 +1,20 @@
+---
+- name: ensure directory /etc/pki/rpm-gpg/
+  file: path=/etc/pki/rpm-gpg/ state=directory recurse=yes
+
+- name: install GPG key
+  rpm_key: key=http://nginx.org/keys/nginx_signing.key state=present
+
+- name: install nginx repo
+  copy: src=nginx.repo dest=/etc/yum.repos.d/nginx.repo
+
+- name: nginx installed
+  yum: name=nginx state=installed
+
+- name: write top-level nginx config file(s)
+  copy: src=server-configs-nginx/ dest=/etc/nginx
+  notify:
+  - Restart nginx
+
+- name: start nginx
+  service: name=nginx state=started

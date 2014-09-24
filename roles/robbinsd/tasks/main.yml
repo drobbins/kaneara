@@ -1,0 +1,47 @@
+---
+- name: create robbinsd user
+  sudo: yes
+  user: name={{username}}
+  register: robbinsd
+
+- name: add robbinsd ssh key
+  sudo: yes
+  authorized_key: user={{username}} key="{{lookup('file','ssh/id_rsa.pub')}}"
+
+- name: give robbinsd sudo powers
+  sudo: yes
+  copy: src=robbinsd dest=/etc/sudoers.d/robbinsd
+
+- debug: var=robbinsd
+
+- name: configure git name
+  remote_user: "{{username}}"
+  command: "git config --global user.name \"{{name}}\""
+
+- name: configure git email
+  remote_user: "{{username}}"
+  command: "git config --global user.email \"{{git_email}}\""
+
+- name: checkout z
+  remote_user: "{{username}}"
+  git: repo="https://github.com/rupa/z.git" dest={{robbinsd.home}}/code/z
+
+- name: checkout dotfiles
+  remote_user: "{{username}}"
+  git: repo={{dotfiles_repo}} dest={{robbinsd.home}}/dotfiles recursive=yes
+
+- name: link bash dotfiles
+  remote_user: "{{username}}"
+  file: dest={{robbinsd.home}}/{{item}} src={{robbinsd.home}}/dotfiles/bash/{{item}} state=link force=yes
+  with_items:
+    - .bashrc
+    - .aliases
+    - .bash_profile
+
+- name: link .vimrc
+  remote_user: "{{username}}"
+  file: dest={{robbinsd.home}}/.vimrc src={{robbinsd.home}}/dotfiles/vim/.vimrc state=link force=yes
+
+- name: link .vim
+  remote_user: "{{username}}"
+  file: dest={{robbinsd.home}}/.vim src={{robbinsd.home}}/dotfiles/vim state=link force=yes

@@ -1,0 +1,25 @@
+---
+- name: copy config
+  copy: src=tissuehub.org dest=/etc/nginx/sites-available/tissuehub.org
+  notify:
+  - Restart nginx
+
+- name: copy ssl config
+  copy: src=ssl.tissuehub.org dest=/etc/nginx/sites-available/ssl.tissuehub.org
+  notify:
+  - Restart nginx
+
+- name: copy certificate tissuehub.org.crt
+  copy: src=tissuehub.org.crt dest=/etc/nginx/sites-available/tissuehub.org.crt
+  notify:
+  - Restart nginx
+
+#- name: copy key tissuehub.org.key
+#  copy: src=tissuehub.org.key dest=/etc/nginx/sites-available/tissuehub.org.key
+#  notify:
+#  - Restart nginx
+
+- name: link ssl.tissuehub.org
+  file: state=link src=/etc/nginx/sites-available/ssl.tissuehub.org dest=/etc/nginx/sites-enabled/ssl.tissuehub.org
+  notify:
+  - Restart nginx

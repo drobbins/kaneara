@@ -10,5 +10,6 @@
       - robbinsd
       - { role: nginx, sudo: yes }
       - { role: robbinsd.net, sudo: yes }
+      - { role: tissuehub.org, sudo: yes }
   tasks:
       - debug: msg="Hello World"

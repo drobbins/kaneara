@@ -23,3 +23,6 @@
   file: state=link src=/etc/nginx/sites-available/ssl.tissuehub.org dest=/etc/nginx/sites-enabled/ssl.tissuehub.org
   notify:
   - Restart nginx
+
+- name: ensure /sites/tissuehub.org/public exists
+  file: state=directory dest=/sites/tissuehub.org/public

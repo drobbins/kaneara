@@ -23,3 +23,6 @@
   file: state=link src=/etc/nginx/sites-available/ssl.robbinsd.net dest=/etc/nginx/sites-enabled/ssl.robbinsd.net
   notify:
   - Restart nginx
+
+- name: ensure /sites/robbinsd.net/public exists
+  file: state=directory dest=/sites/robbinsd.net/public

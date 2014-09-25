@@ -1,0 +1,11 @@
+---
+- name: Install Meteor
+  remote_user: "{{meteor_user}}"
+  shell: "curl https://install.meteor.com/ | sed 's/sudo/sudo -n/g' | /bin/sh"
+  args:
+    creates: "/usr/local/bin/meteor"
+
+- name: Ensure meteor link exists
+  sudo: true
+  file: dest=/usr/local/bin/meteor src="/home/{{meteor_user}}/.meteor/meteor" state=link
+  ignore_errors: yes

@@ -26,3 +26,5 @@
 
 - name: ensure /sites/tissuehub.org/public exists
   file: state=directory dest=/sites/tissuehub.org/public
+
+- pause: prompt="Copy tissuehub.org.key to /etc/nginx/sites-available/tissuehub.org.key. ctrl-c then c to continue."

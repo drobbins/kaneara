@@ -1,0 +1,74 @@
+# Choose between www and non-www, listen on the *wrong* one and redirect to
+# the right one -- http://wiki.nginx.org/Pitfalls#Server_Name
+
+server {
+  listen 80;
+
+  # listen on both hosts
+  server_name tissuehub.org www.tissuehub.org;
+
+  include h5bp/directive-only/ssl.conf;
+
+  # and redirect to the https host (declared below)
+  # avoiding http://www -> https://www -> https:// chain.
+  return 301 https://tissuehub.org$request_uri;
+}
+
+server {
+  listen 443 ssl spdy;
+
+  # listen on the wrong host
+  server_name www.tissuehub.org;
+
+  ssl_certificate      sites-available/tissuehub.org.crt;
+  ssl_certificate_key  sites-available/tissuehub.org.key;
+
+  include h5bp/directive-only/ssl.conf;
+
+  # and redirect to the non-www host (declared below)
+  return 301 https://tissuehub.org$request_uri;
+}
+
+server {
+  listen 443 ssl spdy;
+
+  # The host name to respond to
+  server_name tissuehub.org;
+
+  ssl_certificate      sites-available/tissuehub.org.crt;
+  ssl_certificate_key  sites-available/tissuehub.org.key;
+
+  include h5bp/directive-only/ssl.conf;
+
+  # Path for static files
+  root /sites/tissuehub.org/public;
+
+  # Redirect all traffic Meteor
+  location / {
+    rewrite /(.*) /$1 break;
+    proxy_pass http://127.0.0.1:3000/;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-NginX-Proxy true;
+    proxy_redirect off;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+  }
+
+  #Specify a charset
+  charset utf-8;
+
+  # Custom 404 page
+  error_page 404 /404.html;
+
+  # Include the basic h5bp config set
+  # include h5bp/basic.conf;
+
+  # EDIT: Don't include above, but instead the individual elements so we can omit expires.conf
+  # include h5bp/location/expires.conf;
+  include h5bp/directive-only/x-ua-compatible.conf;
+  include h5bp/location/cross-domain-fonts.conf;
+  include h5bp/location/protect-system-files.conf;
+}

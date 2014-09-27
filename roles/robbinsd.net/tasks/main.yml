@@ -1,0 +1,30 @@
+---
+- name: copy config
+  copy: src=robbinsd.net dest=/etc/nginx/sites-available/robbinsd.net
+  notify:
+  - Restart nginx
+
+- name: copy ssl config
+  copy: src=ssl.robbinsd.net dest=/etc/nginx/sites-available/ssl.robbinsd.net
+  notify:
+  - Restart nginx
+
+- name: copy certificate robbinsd.net.crt
+  copy: src=robbinsd.net.crt dest=/etc/nginx/sites-available/robbinsd.net.crt
+  notify:
+  - Restart nginx
+
+#- name: copy key robbinsd.net.key
+#  copy: src=robbinsd.net.key dest=/etc/nginx/sites-available/robbinsd.net.key
+#  notify:
+#  - Restart nginx
+
+- name: link ssl.robbinsd.net
+  file: state=link src=/etc/nginx/sites-available/ssl.robbinsd.net dest=/etc/nginx/sites-enabled/ssl.robbinsd.net
+  notify:
+  - Restart nginx
+
+- name: ensure /sites/robbinsd.net/public exists
+  file: state=directory dest=/sites/robbinsd.net/public
+
+- pause: prompt="Copy robbinsd.net.key to /etc/nginx/sites-available/robbinsd.net.key. ctrl-c then c to continue."

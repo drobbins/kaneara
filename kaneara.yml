@@ -12,5 +12,3 @@
       - { role: robbinsd.net, sudo: yes }
       - { role: tissuehub.org, sudo: yes }
       - { role: tissuehub, tissuehub_user: robbinsd }
-  tasks:
-      - debug: msg="Hello World"

@@ -1,4 +1,7 @@
 ---
+- set_fact:
+    timestamp: "{{ lookup('pipe', 'date +%Y%m%d%H%M%S') }}"
+
 - name: ensure forever is installed
   sudo: true
   npm: name=forever global=yes state=present
@@ -11,26 +14,22 @@
   sudo: true
   service: name=mongod state=started
 
+#- name: remove current running app
+#  remote_user: "{{tissuehub_user}}"
+#  shell: chdir={{app_dir}} rm -rf bundle
+
+- name: build app
+  remote_user: "{{tissuehub_user}}"
+  shell: chdir={{app_dir}} /usr/local/bin/meteor build --directory build-{{timestamp}}
+
+- name: install npm dependencies
+  remote_user: "{{tissuehub_user}}"
+  shell: chdir={{app_dir}}/build-{{timestamp}}/bundle/programs/server npm install
+
 - name: stop current running app
   remote_user: "{{tissuehub_user}}"
   shell: forever stopall
   ignore_errors: yes
-
-- name: remove current running app
-  remote_user: "{{tissuehub_user}}"
-  shell: chdir={{app_dir}} rm -rf bundle
-
-- name: bundle app
-  remote_user: "{{tissuehub_user}}"
-  shell: chdir={{app_dir}} /usr/local/bin/meteor bundle bundle.tgz
-
-- name: unbundle app
-  remote_user: "{{tissuehub_user}}"
-  shell: chdir={{app_dir}} tar -xzvf bundle.tgz
-
-- name: install npm dependencies
-  remote_user: "{{tissuehub_user}}"
-  shell: chdir={{app_dir}}/bundle/programs/server npm install
 
 - name: start tissuehub
   remote_user: "{{tissuehub_user}}"
@@ -38,6 +37,6 @@
     PORT={{ port }}
     MONGO_URL={{ mongo_url }}
     ROOT_URL={{ "https://tissuehub.org/" }}
-    forever start "{{ app_dir }}"/bundle/main.js
+    forever start "{{app_dir}}"/build-{{timestamp}}/bundle/main.js
   async: 10
   poll: 1

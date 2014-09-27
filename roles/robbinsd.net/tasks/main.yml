@@ -27,4 +27,5 @@
 - name: ensure /sites/robbinsd.net/public exists
   file: state=directory dest=/sites/robbinsd.net/public
 
-- pause: prompt="Copy robbinsd.net.key to /etc/nginx/sites-available/robbinsd.net.key. ctrl-c then c to continue."
+- name: waiting for /etc/nginx/sites-available/robbinsd.net.key; copy now.
+  wait_for: path=/etc/nginx/sites-available/robbinsd.net.key

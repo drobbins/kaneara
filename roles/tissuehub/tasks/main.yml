@@ -37,7 +37,7 @@
   shell:  >
     PORT={{ port }}
     MONGO_URL={{ mongo_url }}
-    ROOT_URL={{ "http://localhost/" }}
+    ROOT_URL={{ "https://tissuehub.org/" }}
     forever start "{{ app_dir }}"/bundle/main.js
   async: 10
   poll: 1

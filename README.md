@@ -26,3 +26,11 @@ kaneara ansible_ssh_host=198.199.67.43
 ```
 
 Don't forget to copy over SSL keys.
+
+### Quick Deploy
+
+If the only goal is to update the TissueHub deployment to the latest `master` on TissueHub/TissueHub, consider using:
+
+```
+ansible-playbook -i hosts quickdeploy.yml
+```

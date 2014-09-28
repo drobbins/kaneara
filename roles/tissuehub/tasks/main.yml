@@ -20,11 +20,11 @@
 
 - name: build app
   remote_user: "{{tissuehub_user}}"
-  shell: chdir={{app_dir}} /usr/local/bin/meteor build --directory build-{{timestamp}}
+  shell: chdir={{app_dir}} /usr/local/bin/meteor build --directory .builds/build-{{timestamp}}
 
 - name: install npm dependencies
   remote_user: "{{tissuehub_user}}"
-  shell: chdir={{app_dir}}/build-{{timestamp}}/bundle/programs/server npm install
+  shell: chdir={{app_dir}}/.builds/build-{{timestamp}}/bundle/programs/server npm install
 
 - name: stop current running app
   remote_user: "{{tissuehub_user}}"
@@ -37,6 +37,6 @@
     PORT={{ port }}
     MONGO_URL={{ mongo_url }}
     ROOT_URL={{ "https://tissuehub.org/" }}
-    forever start "{{app_dir}}"/build-{{timestamp}}/bundle/main.js
+    forever start "{{app_dir}}"/.builds/build-{{timestamp}}/bundle/main.js
   async: 10
   poll: 1

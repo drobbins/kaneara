@@ -66,9 +66,10 @@ server {
   # Include the basic h5bp config set
   # include h5bp/basic.conf;
 
-  # EDIT: Don't include above, but instead the individual elements so we can omit expires.conf
+  # EDIT: Don't include above, but instead the individual elements so we can omit files with locations.
+  # These locations are used for cache settings, but break the proxy passing location / above.
   # include h5bp/location/expires.conf;
+  # include h5bp/location/cross-domain-fonts.conf;
   include h5bp/directive-only/x-ua-compatible.conf;
-  include h5bp/location/cross-domain-fonts.conf;
   include h5bp/location/protect-system-files.conf;
 }

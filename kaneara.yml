@@ -4,6 +4,12 @@
       - name: Install libselinux-python
         sudo: true
         yum: name=libselinux-python state=present
+      - name: Ensure kaneara knows where itself is (IPv4)
+        sudo: true
+        linefile: dest=/etc/hosts line="127.0.0.1 kaneara"
+      - name: Ensure kaneara knows where itself is (IPv6)
+        sudo: true
+        linefile: dest=/etc/hosts line="::1 kaneara"
   roles:
       - { role: goozbach.EPEL, sudo: yes }
       - { role: base, sudo: yes }

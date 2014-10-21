@@ -14,4 +14,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         ansible.playbook = "kaneara.yml"
   end
 
+  config.vm.network "forwarded_port", guest: 443, host: 4433
+
 end

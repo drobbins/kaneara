@@ -42,7 +42,7 @@
   shell:  >
     PORT={{ port }}
     MONGO_URL={{ mongo_url }}
-    MONGO_OPLOG_URL=mongodb://localhost/local
+    MONGO_OPLOG_URL={{ "mongodb://localhost/local" }}
     ROOT_URL={{ "https://tissuehub.org/" }}
     forever start "{{app_dir}}"/.builds/build-{{timestamp}}/bundle/main.js
   async: 10

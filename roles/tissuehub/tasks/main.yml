@@ -10,9 +10,19 @@
   remote_user: "{{tissuehub_user}}"
   git: repo={{repo}} dest={{app_dir}} accept_hostkey=yes
 
+- name: ensure the MongoDB configuration is in place
+  sudo: true
+  template: src=mongod.conf.j2 dest=/etc/mongod.conf
+
 - name: ensure MongoDB is running
   sudo: true
-  service: name=mongod state=started
+  service: name=mongod state=restarted
+
+- name: create replica set initialization file
+  template: src=replset_init.j2 dest=/tmp/replset_init.js
+
+- name: initialize the replication set
+  shell: /usr/bin/mongo /tmp/replset_init.js
 
 - name: build app
   remote_user: "{{tissuehub_user}}"
@@ -32,6 +42,7 @@
   shell:  >
     PORT={{ port }}
     MONGO_URL={{ mongo_url }}
+    MONGO_OPLOG_URL=mongodb://localhost/local
     ROOT_URL={{ "https://tissuehub.org/" }}
     forever start "{{app_dir}}"/.builds/build-{{timestamp}}/bundle/main.js
   async: 10

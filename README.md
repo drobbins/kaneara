@@ -11,6 +11,19 @@ git clone https://github.com/drobbins/kaneara.git && cd kaneara
 vagrant up
 ```
 
+### Useful Commands
+
+These assume you are connected via ssh.
+
+#### Restarting the TissueHub Meteor app
+
+From withing a `tissuehub/.builds/build-<timestamp>/bundle` directory:
+
+```bash
+forever stopall
+PORT=3000 MONGO_URL=mongodb://localhost/TissueHub MONGO_OPLOG_URL=mongodb://localhost/local ROOT_URL=https://tissuehub.org/ forever start main.js
+```
+
 ## Production
 
 Using the included inventory file:

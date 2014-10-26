@@ -12,13 +12,21 @@
   sudo: yes
   copy: src=robbinsd dest=/etc/sudoers.d/robbinsd
 
+- name: check git name
+  remote_user: "{{username}}"
+  command: "git config --global user.name"
+  register: git_name
+
 - name: configure git name
   remote_user: "{{username}}"
   command: "git config --global user.name \"{{name}}\""
+  when: not git_name.stdout == "David Robbins"
+
 
 - name: configure git email
   remote_user: "{{username}}"
   command: "git config --global user.email \"{{git_email}}\""
+  when: not git_name.stdout == "David Robbins"
 
 - name: checkout z
   remote_user: "{{username}}"

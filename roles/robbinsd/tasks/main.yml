@@ -12,8 +12,6 @@
   sudo: yes
   copy: src=robbinsd dest=/etc/sudoers.d/robbinsd
 
-- debug: var=robbinsd
-
 - name: configure git name
   remote_user: "{{username}}"
   command: "git config --global user.name \"{{name}}\""

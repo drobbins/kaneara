@@ -47,3 +47,9 @@ If the only goal is to update the TissueHub deployment to the latest `master` on
 ```
 ansible-playbook -i hosts quickdeploy.yml
 ```
+
+#### Quick Deploy to Vagrant
+
+```shell
+$ make quickdeploy-vagrant
+```

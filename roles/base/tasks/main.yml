@@ -10,3 +10,6 @@
 
 - name: install npm and Node
   yum: name=npm enablerepo=epel state=present
+
+- name: ensure NodeJS is the latest version
+  yum: name=nodejs enablerepo=epel state=latest

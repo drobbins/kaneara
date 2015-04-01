@@ -1,6 +1,7 @@
 ---
 tissuehub_user: "vagrant"
-app_dir: "/home/{{tissuehub_user}}/tissuehub"
+tissuehub_version: "1.0.1"
+app_dir: "/home/{{tissuehub_user}}/tissuehub-builds"
 repo: "https://github.com/TissueHub/TissueHub.git"
 mongo_url: "mongodb://localhost/TissueHub"
 port: 3000

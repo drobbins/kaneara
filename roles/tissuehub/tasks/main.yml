@@ -6,10 +6,6 @@
   sudo: true
   npm: name=forever global=yes state=present
 
-- name: checkout tissuehub repository
-  remote_user: "{{tissuehub_user}}"
-  git: repo={{repo}} dest={{app_dir}} accept_hostkey=yes
-
 - name: ensure the MongoDB configuration is in place
   sudo: true
   template: src=mongod.conf.j2 dest=/etc/mongod.conf
@@ -24,13 +20,25 @@
 - name: initialize the replication set
   shell: /usr/bin/mongo /tmp/replset_init.js
 
-- name: build app
+- name: make directory for release
   remote_user: "{{tissuehub_user}}"
-  shell: chdir={{app_dir}} /usr/local/bin/meteor build --directory .builds/build-{{timestamp}}
+  file: dest="{{app_dir}}/tissuehub-{{tissuehub_version}}" state=directory
+
+- name: download release
+  remote_user: "{{tissuehub_user}}"
+  get_url: url="https://github.com/TissueHub/TissueHub/releases/download/v{{tissuehub_version}}/tissuehub-{{tissuehub_version}}-os.linux.x86_64.tar.gz" dest={{app_dir}}/tissuehub-{{tissuehub_version}}-os.linux.x86_64.tar.gz validate_certs=no
+
+- name: make directory for release
+  remote_user: "{{tissuehub_user}}"
+  file: dest="{{app_dir}}/tissuehub-{{tissuehub_version}}" state=directory
+
+- name: extract release
+  remote_user: "{{tissuehub_user}}"
+  unarchive: copy=no src="{{app_dir}}/tissuehub-{{tissuehub_version}}-os.linux.x86_64.tar.gz" dest="{{app_dir}}/tissuehub-{{tissuehub_version}}"
 
 - name: install npm dependencies
   remote_user: "{{tissuehub_user}}"
-  shell: chdir={{app_dir}}/.builds/build-{{timestamp}}/bundle/programs/server npm install
+  shell: chdir={{app_dir}}/tissuehub-{{tissuehub_version}}/bundle/programs/server npm install
 
 - name: stop current running app
   remote_user: "{{tissuehub_user}}"
@@ -44,6 +52,6 @@
     MONGO_URL={{ mongo_url }}
     MONGO_OPLOG_URL={{ "mongodb://localhost/local" }}
     ROOT_URL={{ "https://tissuehub.org/" }}
-    forever start "{{app_dir}}"/.builds/build-{{timestamp}}/bundle/main.js
+    forever start {{app_dir}}/tissuehub-{{tissuehub_version}}/bundle/main.js
   async: 10
   poll: 1

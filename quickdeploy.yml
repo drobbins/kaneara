@@ -1,5 +1,5 @@
 ---
 - hosts: all
   roles:
-      - { role: tissuehub, tissuehub_user: robbinsd }
+      - { role: tissuehub, tissuehub_user: robbinsd, tissuehub_version: "1.0.2" }
 

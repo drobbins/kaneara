@@ -17,4 +17,4 @@
       - { role: nginx, sudo: yes }
       - { role: robbinsd.net, sudo: yes }
       - { role: tissuehub.org, sudo: yes }
-      - { role: tissuehub, tissuehub_user: robbinsd, tissuehub_version: "1.1.0" }
+      - { role: tissuehub, tissuehub_user: robbinsd, tissuehub_version: "1.1.1" }

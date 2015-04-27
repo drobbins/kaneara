@@ -14,3 +14,9 @@ quickdeploy-vagrant:
 		-i $(vagrant_inventory) 				\
 		--private-key=$(vagrant_keyfile) 		\
 		-u vagrant
+
+kaneara-vagrant:
+	ansible-playbook kaneara.yml			\
+		-i $(vagrant_inventory) 				\
+		--private-key=$(vagrant_keyfile) 		\
+		-u vagrant
